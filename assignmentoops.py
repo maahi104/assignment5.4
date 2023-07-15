@@ -1,29 +1,42 @@
-class Account:
-    def __init__(self, title=None, balance=0):
-        self.title = title
+class account:
+    def __init__(self, balance):
         self.balance = balance
-    def withdrawal(self, amount):
-        self.balance -= amount
-    def deposit(self, amount):
-        self.balance += amount
-    def getBalance(self):
+        
+    def getbalance(self):
         return self.balance
     
-class SavingsAccount(Account):
-    def __init__(self, title=None, balance=0, interestRate=0):
-        super().__init__(title, balance)
-        self.interestRate = interestRate
+    def deposit(self, amount):
+        self.balance += amount
+    
+    def withdrawal(self, amount):
+        self.balance -= amount
+
+class savingsaccount(account):
+    def __init__(self, balance, interestrate):
+        super().__init__(balance)
+        self.interestrate = interestrate
+    
     def interestAmount(self):
-        return (self.balance * self.interestRate)/100
+        interest = self.balance * (self.interestrate/100)
+        self.balance += interest
+        return interest
 
-demo1 = SavingsAccount("Ashish", 2000, 5)
-demo1.deposit(500)
-print(demo1.getBalance()) 
+balance_1 = int(input("Enter initial balance for account 1: "))
+deposit = int(input("Enter deposit amount: "))
+balance_2 = int(input("Enter initial balance for account 2: "))
+withdrawal = int(input("Enter withdrawal amount: "))
+interest_rate = int(input("Enter interest rate: "))
 
-demo1 = SavingsAccount("Ashish", 2000, 5)
-demo1.withdrawal(500)
-print(demo1.getBalance()) 
+account_1 = account(balance_1)
+account_1.deposit(deposit)
+print("Balance for account 1 after deposit:", account_1.getbalance())
 
-demo1 = SavingsAccount("Ashish", 2000, 5)
-print(demo1.interestAmount()) 
+account_2 = account(balance_2)
+account_2.withdrawal(withdrawal)
+print("Balance for account 2 after withdrawal:", account_2.getbalance())
+
+savings_account = savingsaccount(balance_1, interest_rate)
+interest_earned = savings_account.interestAmount()
+print("Interest earned:", interest_earned)
+
 
